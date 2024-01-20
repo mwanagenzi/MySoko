@@ -3,16 +3,25 @@ package com.mwanagenzi.mysoko
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.ui.theme.MySokoTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +35,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                        Greeting("Android")
+                        AppLogo()
+                        Greeting("My Soko")
                     }
                 }
             }
@@ -37,8 +47,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        text = "$name",
+        modifier = modifier,
+        style = TextStyle(fontWeight = FontWeight.Medium, fontFamily = FontFamily.SansSerif)
     )
 }
 
@@ -46,6 +57,30 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     MySokoTheme {
-        Greeting("Android")
+        Greeting("MySoko")
+    }
+}
+
+@Composable
+fun AppLogo() {
+    Image(
+        painter = painterResource(id = R.drawable.basket),
+        contentDescription = "App Logo",
+        modifier = Modifier.size(100.dp)
+    )
+}
+
+@Preview(showBackground = true, heightDp = 620, widthDp = 320)
+@Composable
+fun SplashScreenPreview() {
+    MySokoTheme {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            AppLogo()
+            Spacer(modifier = Modifier.height(18.dp))
+            Greeting(name = "My Soko")
+        }
     }
 }
