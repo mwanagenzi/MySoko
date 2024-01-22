@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mwanagenzi.mysoko.ui.screens.SignUpScreen
 import com.mwanagenzi.mysoko.ui.theme.MySokoTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,10 +37,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                        AppLogo()
-                        AppName("My Soko")
-                    }
+//                    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+//                        AppLogo()
+//                        AppName("My Soko")
+//                    }
+                    SignUpScreen(modifier = Modifier)
                 }
             }
         }
@@ -79,7 +81,9 @@ fun SplashScreenPreview() {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxHeight().fillMaxWidth()
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth()
         ) {
             AppLogo()
             Spacer(modifier = Modifier.height(18.dp))
