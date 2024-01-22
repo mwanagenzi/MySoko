@@ -7,7 +7,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
@@ -36,7 +38,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                         AppLogo()
-                        Greeting("My Soko")
+                        AppName("My Soko")
                     }
                 }
             }
@@ -45,9 +47,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun AppName(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "$name",
+        text = "$name!",
         modifier = modifier,
         style = TextStyle(fontWeight = FontWeight.Medium, fontFamily = FontFamily.SansSerif)
     )
@@ -55,9 +57,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun AppNamePreview() {
     MySokoTheme {
-        Greeting("MySoko")
+        AppName("MySoko")
     }
 }
 
@@ -70,17 +72,18 @@ fun AppLogo() {
     )
 }
 
-@Preview(showBackground = true, heightDp = 620, widthDp = 320)
+@Preview(showBackground = true)
 @Composable
 fun SplashScreenPreview() {
     MySokoTheme {
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxHeight().fillMaxWidth()
         ) {
             AppLogo()
             Spacer(modifier = Modifier.height(18.dp))
-            Greeting(name = "My Soko")
+            AppName(name = "My Soko")
         }
     }
 }
