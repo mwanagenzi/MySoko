@@ -84,7 +84,7 @@ private fun SignUpLabel(modifier: Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UsernameTextField(modifier: Modifier) {
+private fun UsernameTextField(modifier: Modifier) {
     var usernameText by remember {
         mutableStateOf(TextFieldValue(""))
     }
@@ -104,7 +104,7 @@ fun UsernameTextField(modifier: Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextField(modifier: Modifier) {
+private fun PasswordTextField(modifier: Modifier) {
     var password by remember {
         mutableStateOf(TextFieldValue(""))
     }
@@ -124,7 +124,7 @@ fun PasswordTextField(modifier: Modifier) {
 }
 
 @Composable
-fun PolicyAgreementClickableLinkText(modifier: Modifier) {
+private fun PolicyAgreementClickableLinkText(modifier: Modifier) {
     val uriHandler = LocalUriHandler.current
     val annotatedString = buildAnnotatedString {
         append("By selecting Agree and Continue, I agree to the ")
@@ -160,7 +160,7 @@ fun PolicyAgreementClickableLinkText(modifier: Modifier) {
 }
 
 @Composable
-fun SignUpButton() {
+private fun SignUpButton() {
     Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
         Text(text = "Agree & Continue")
     }
