@@ -32,7 +32,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -94,7 +93,6 @@ fun UsernameTextField(modifier: Modifier) {
         onValueChange = {
             usernameText = it
         },
-//        modifier = modifier.padding(top = 18.dp),
         label = { Text(text = "Username") },
         singleLine = true,
         placeholder = { Text(text = "Enter Username") },
