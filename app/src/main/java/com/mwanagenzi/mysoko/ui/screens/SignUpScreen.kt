@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,14 +50,11 @@ fun SignUpScreen(modifier: Modifier) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Sign up",
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
-                modifier = modifier.padding(bottom = 18.dp)
-            )
+            SignUpLabel(modifier)
             Surface(
                 shape = RoundedCornerShape(20.dp),
-                color = Color.LightGray
+                color = Color.LightGray,
+                modifier = modifier.padding(horizontal = 18.dp)
             ) {
                 Column(
                     modifier = modifier
@@ -74,6 +72,15 @@ fun SignUpScreen(modifier: Modifier) {
     }
 
 
+}
+
+@Composable
+private fun SignUpLabel(modifier: Modifier) {
+    Text(
+        text = "Sign up",
+        style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Medium),
+        modifier = modifier.padding(bottom = 18.dp)
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -121,21 +128,26 @@ fun PasswordTextField(modifier: Modifier) {
 @Composable
 fun PolicyAgreementClickableLinkText(modifier: Modifier) {
     val uriHandler = LocalUriHandler.current
-
     val annotatedString = buildAnnotatedString {
-        withStyle(style = SpanStyle(color = Color.Red)) {
+        append("By selecting Agree and Continue, I agree to the ")
+        withStyle(
+            style = SpanStyle(
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 16.sp
+            )
+        ) {
             append("Terms of Service and Privacy Policy")
+            addStringAnnotation(
+                tag = "URL",
+                annotation = "https://www.privacypolicies.com",
+                start = 10,
+                end = 18
+            )
         }
-        addStringAnnotation(
-            tag = "URL",
-            annotation = "https://www.privacypolicies.com",
-            start = 10,
-            end = 18
-        )
     }
 
     Text(
-        text = "By selecting Agree and Continue, \n I agree to  $annotatedString",
+        annotatedString,
         modifier = Modifier
             .padding(vertical = 18.dp)
             .clickable {
@@ -154,11 +166,4 @@ fun SignUpButton() {
     Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
         Text(text = "Agree & Continue")
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun SignUpScreenPreview() {
-    SignUpScreen(modifier = Modifier)
 }
