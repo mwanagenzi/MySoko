@@ -4,11 +4,15 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,22 +22,40 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SplashScreen(modifier: Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AppLogo(appLogoDrawable = R.drawable.basket)
-        Spacer(modifier = Modifier.height(18.dp))
-        AppName(name = "My Soko")
+fun AuthScreen(modifier: Modifier) {
+    Scaffold() {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier
+                .fillMaxHeight()
+                .fillMaxWidth()
+                .padding(it)
+        ) {
+            AppLogo(appLogoDrawable = R.drawable.basket)
+            AppName()
+            LoginButton(modifier = modifier)
+            SignUpButton(modifier)
+        }
+    }
+}
+
+@Composable
+private fun LoginButton(modifier: Modifier) {
+    Button(onClick = {}, shape = RoundedCornerShape(20.dp), modifier = modifier) {
+        Text("Continue")
+    }
+}
+
+@Composable
+private fun SignUpButton(modifier: Modifier) {
+    OutlinedButton(onClick = {}, shape = RoundedCornerShape(20.dp)) {
+        Text(text = "Agree & Continue")
     }
 }
 
@@ -54,13 +76,5 @@ private fun AppLogo(
         painter = painterResource(id = appLogoDrawable),
         contentDescription = "App Logo",
         modifier = Modifier.size(100.dp)
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SplashScreenPreview() {
-    SplashScreen(
-        modifier = Modifier
     )
 }

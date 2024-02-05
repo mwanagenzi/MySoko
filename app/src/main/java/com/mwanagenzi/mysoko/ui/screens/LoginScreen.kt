@@ -2,6 +2,7 @@
 
 package com.mwanagenzi.mysoko.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,20 +23,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(modifier: Modifier) {
-    //password text field
-    //"Continue" button
-    //Forgot your password link text
     Scaffold() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -54,14 +58,39 @@ fun LoginScreen(modifier: Modifier) {
                 modifier = modifier.padding(horizontal = 18.dp)
             ) {
                 PasswordTextField(modifier = modifier)
+                LoginButton(modifier)
+                ForgotPasswordLinkText(modifier)
             }
         }
     }
 }
 
 @Composable
+private fun ForgotPasswordLinkText(modifier: Modifier) {
+    Text(buildAnnotatedString {
+        append("Forgot your password?")
+        withStyle(
+            SpanStyle(
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 16.sp
+            )
+        )
+    }, modifier = modifier.clickable {
+        //todo: navigate to forgot password screen or link in email
+    })
+}
+
+@Composable
+private fun LoginButton(modifier: Modifier) {
+    Button(onClick = {}, shape = RoundedCornerShape(20.dp), modifier = modifier) {
+        Text("Continue")
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 private fun PasswordTextField(modifier: Modifier) {
-    var password by remember {
+    var password by rememberSaveable {
         mutableStateOf(TextFieldValue(""))
     }
     OutlinedTextField(
@@ -76,7 +105,10 @@ private fun PasswordTextField(modifier: Modifier) {
             Icon(imageVector = Icons.Outlined.Lock, contentDescription = "Password Icon")
         },
         trailingIcon = {
-            Icon(imageVector = Icons.Outlined.Lock, contentDescription = "Password Visibility Icon")
+            Icon(imageVector = Icons.Outlined.Lock, contentDescription = "Password Visibility Icon", Modifier.clickable {
+                //todo: change state of text from hidden to visible and vice versa
+                //todo: import relevant trailing icon and also cater for its rendering changes
+            })
         },
         modifier = modifier.padding(top = 18.dp)
     )
