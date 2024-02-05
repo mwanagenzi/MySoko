@@ -8,12 +8,17 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.material3.Card
+import androidx.compose.material3.ElevatedSuggestionChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,11 +40,6 @@ import com.mwanagenzi.mysoko.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(modifier: Modifier) {
-    //"Clearance Sales" banner
-    //"Categories" Text View and Link text "See all"
-    //LazyColumn of Chips
-    //Grid layout for products.
-
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -113,14 +113,32 @@ fun HomeScreen(modifier: Modifier) {
             }
             Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(text = "Categories", style = MaterialTheme.typography.titleMedium)
-                Text("See all", color = MaterialTheme.colorScheme.primary, modifier.clickable {
-                    //todo:
-                })
+                Text(
+                    text = "See all",
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = modifier.clickable {},
+                )
             }
+            LazyRow(content = {
+                items(10) {
+                    ElevatedSuggestionChip(onClick = {
+                        //todo: filter content based on selected category
+                    }, label = { Text("Category $it") })
+                }
+            })
+            LazyVerticalGrid(columns = GridCells.Fixed(2), content = {
+                items(10) {
+                    Card(modifier.size(100.dp), shape = RoundedCornerShape(20.dp)) {
+                        Column(verticalArrangement = Arrangement.SpaceBetween) {
+                            Image(
+                                painter = painterResource(id = R.drawable.basket),
+                                contentDescription = "Product Card", modifier.size(50.dp)
+                            )
+                            Text("Name", style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
+                }
+            })
         }
-        //"Categories" Text View and Link text "See all"
-        //LazyColumn of Chips
-        //Grid layout for products.
-
     }
 }
