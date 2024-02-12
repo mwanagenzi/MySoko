@@ -4,18 +4,26 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.StarRate
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -25,6 +33,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
@@ -73,16 +83,28 @@ fun ProductScreen(modifier: Modifier) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(text = "Xbox Series X", style = MaterialTheme.typography.titleMedium)
-                    Row {
+                    Row(horizontalArrangement = Arrangement.Start) {
                         AssistChip(onClick = {}, label = {
                             Row(horizontalArrangement = Arrangement.SpaceAround) {
                                 Icon(
                                     imageVector = Icons.Filled.StarRate,
-                                    contentDescription = "Rate product"
+                                    contentDescription = "Product rating"
                                 )
-                                Text(text = "94%", style = MaterialTheme.typography.bodySmall)
+                                Text(text = "4.8", style = MaterialTheme.typography.bodySmall)
                             }
                         })
+                        AssistChip(
+                            onClick = {},
+                            modifier = modifier.padding(horizontal = 10.dp),
+                            label = {
+                                Row(horizontalArrangement = Arrangement.SpaceAround) {
+                                    Icon(
+                                        imageVector = Icons.Filled.ThumbUp,
+                                        contentDescription = "Product review"
+                                    )
+                                    Text(text = "4.8", style = MaterialTheme.typography.bodySmall)
+                                }
+                            })
                         Text(
                             text = "117 reviews",
                             style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Light)
@@ -92,9 +114,46 @@ fun ProductScreen(modifier: Modifier) {
                         dummyReview,
                         style = MaterialTheme.typography.bodySmall
                     )
-
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        SuggestionChip(onClick = {}, label = {
+                            Text(text = "1 TB")
+                            Text(text = "825 GB")
+                            Text(text = "512 GB")
+                        })
+                    }
+                    Spacer(modifier = modifier.height(8.dp))
+                    Divider(color = Color.LightGray, thickness = Dp.Hairline)
+                    Row(
+                        modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceAround
+                    ) {
+                        Column(
+                            modifier = modifier.fillMaxHeight(),
+                            verticalArrangement = Arrangement.SpaceBetween,
+                            horizontalAlignment = Alignment.Start
+                        ) {
+                            Text(
+                                text = "$650.00",
+                                style = MaterialTheme.typography.labelSmall.copy(
+                                    textDecoration = TextDecoration.LineThrough,
+                                    color = Color.LightGray
+                                )
+                            )
+                            Text(
+                                text = "$570.00",
+                                style = MaterialTheme.typography.labelLarge.copy(color = Color.Black)
+                            )
+                        }
+                        Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
+                            Text(text = "Add to Cart")
+                        }
+                    }
                 }
-
             }
         }
     }
