@@ -133,7 +133,8 @@ private fun PolicyAgreementClickableLinkText(modifier: Modifier) {
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp
             )
-        ) {
+        )
+        {
             append("Terms of Service and Privacy Policy")
             addStringAnnotation(
                 tag = "URL",

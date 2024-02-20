@@ -22,7 +22,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -68,13 +67,20 @@ fun LoginScreen(modifier: Modifier) {
 @Composable
 private fun ForgotPasswordLinkText(modifier: Modifier) {
     Text(buildAnnotatedString {
-        append("Forgot your password?")
         withStyle(
-            SpanStyle(
+            style = SpanStyle(
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp
             )
-        )
+        ) {
+            append("Forgot your password?")
+            addStringAnnotation(
+                tag = "URL",
+                annotation = "https://auth0.com/docs/customize/universal-login-pages/customize-password-reset-page",
+                start = 1,
+                end = 20
+            )
+        }
     }, modifier = modifier.clickable {
         //todo: navigate to forgot password screen or link in email
     })
