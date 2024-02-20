@@ -147,7 +147,7 @@ private fun PolicyAgreementClickableLinkText(modifier: Modifier) {
 
     Text(
         annotatedString,
-        modifier = Modifier
+        modifier
             .padding(vertical = 18.dp)
             .clickable {
                 annotatedString

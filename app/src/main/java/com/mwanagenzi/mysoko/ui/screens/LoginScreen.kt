@@ -82,7 +82,7 @@ private fun ForgotPasswordLinkText(modifier: Modifier) {
             )
         }
     }, modifier = modifier.clickable {
-        //todo: navigate to forgot password screen or link in email
+        //todo: show snackbar that forgot password has been tapped
     })
 }
 

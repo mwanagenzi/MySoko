@@ -33,7 +33,7 @@ fun SplashScreen(modifier: Modifier) {
     ) {
         AppLogo(appLogoDrawable = R.drawable.basket)
         Spacer(modifier = Modifier.height(18.dp))
-        AppName(name = "My Soko")
+        AppName()
     }
 }
 
