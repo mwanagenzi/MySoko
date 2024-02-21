@@ -21,6 +21,7 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.LocalShipping
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Wallet
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -262,23 +263,23 @@ private fun OrderOptionTile(modifier: Modifier, tileIcon: ImageVector, tileName:
 }
 
 
-//@Preview()
-//@Composable
-//fun ProfileCardPreview() {
-//    ProfileCard(modifier = Modifier)
-//}
-//@Preview(showBackground = true)
-//@Composable
-//fun OrderOptionTilePreview() {
-//    OrderOptionTile(modifier = Modifier)
-//}
+@Preview()
+@Composable
+fun ProfileCardPreview() {
+    ProfileCard(modifier = Modifier)
+}
+@Preview(showBackground = true)
+@Composable
+fun OrderOptionTilePreview() {
+    OrderOptionTile(modifier = Modifier, tileIcon = Icons.Outlined.Wallet, tileName = "To Pay")
+}
+@Preview(showBackground = true, heightDp = 440)
+@Composable
+fun OrdersAndAddressInfoPreview() {
+    OrdersAndAddressInfo(modifier = Modifier)
+}
 @Preview(showBackground = true, widthDp = 320, heightDp = 640)
 @Composable
 fun UserProfileScreenPreview() {
     UserProfileScreen(modifier = Modifier)
 }
-//@Preview(showBackground = true)
-//@Composable
-//fun OrdersAndAddressInfoPreview() {
-//    OrdersAndAddressInfo(modifier = Modifier)
-//}
