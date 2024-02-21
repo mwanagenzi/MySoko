@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.ArrowForwardIos
+import androidx.compose.material.icons.outlined.Backpack
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.LocalShipping
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ButtonDefaults
@@ -33,6 +37,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -67,7 +72,7 @@ fun UserProfileScreen(modifier: Modifier) {
         Column(
             modifier = modifier
                 .padding(it)
-                .fillMaxSize(),
+                .fillMaxHeight(),
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -79,12 +84,12 @@ fun UserProfileScreen(modifier: Modifier) {
 
 @Composable
 private fun ProfileCard(modifier: Modifier) {
-    ElevatedCard(modifier = modifier) {
+    ElevatedCard(modifier = modifier.padding(horizontal = 16.dp)) {
         Row(
             modifier = modifier
-                .fillMaxWidth()
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.basket),
@@ -104,7 +109,7 @@ private fun ProfileCard(modifier: Modifier) {
             ) {
                 Column(
                     verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Text("John Doe", style = MaterialTheme.typography.bodyLarge)
                     Spacer(modifier = modifier.size(4.dp))
@@ -132,35 +137,31 @@ fun OrdersAndAddressInfo(modifier: Modifier) {
         modifier = modifier.padding(horizontal = 16.dp)
     ) {
         Column(
-            modifier = modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier.fillMaxSize()
         ) {
             MyOrdersInfo(modifier)
-            Column(
-                verticalArrangement = Arrangement.SpaceAround,
-                horizontalAlignment = Alignment.CenterHorizontally,
+            OrderOptionTile(modifier, Icons.Outlined.AccountBalanceWallet, "To pay")
+            OrderOptionTile(modifier, Icons.Outlined.LocalShipping, "To ship")
+            OrderOptionTile(modifier, Icons.Outlined.Backpack, "To receive")
+            OrderOptionTile(modifier, Icons.Outlined.FavoriteBorder, "Wishlist")
+            Spacer(modifier = modifier.size(8.dp))
+            AddressInfo(modifier)
+            TextButton(
+                onClick = {
+                    //todo:logout
+                },
+                colors = ButtonDefaults.textButtonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White
+                ),
+                modifier = modifier.fillMaxWidth(),
             ) {
-                OrderOptionTile(modifier)
-                OrderOptionTile(modifier)
-                OrderOptionTile(modifier)
-                OrderOptionTile(modifier)
-                Spacer(modifier = modifier.size(8.dp))
-                AddressText()
-                AddressInfo(modifier)
-                TextButton(
-                    onClick = {
-                        //todo:logout
-                    }, colors = ButtonDefaults.textButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(
-                        text = "Log out",
-                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Normal)
-                    )
-                }
+                Text(
+                    text = "Log out",
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Normal)
+                )
             }
         }
     }
@@ -196,39 +197,46 @@ private fun MyOrdersInfo(modifier: Modifier) {
 
 @Composable
 private fun AddressInfo(modifier: Modifier) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.Start
     ) {
-        Icon(imageVector = Icons.Outlined.Map, contentDescription = "Address Icon")
 
-        Column(
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.Start
+
+        Text(
+            text = "Address",
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+            modifier = modifier.fillMaxWidth(),
+            textAlign = TextAlign.Start
+        )
+        Spacer(modifier = modifier.size(10.dp))
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(
-                text = "John Doe",
-                style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Light)
-            )
-            Text(
-                text = "7835 new road, Number 3 \n 12926-3874",
-                style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Light)
-            )
+            Icon(imageVector = Icons.Outlined.Map, contentDescription = "Address Icon")
+
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = "John Doe",
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
+                )
+                Text(
+                    text = "7835 new road, Number 3 \n12926-3874",
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun AddressText() {
-    Text(
-        text = "Address",
-        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Light)
-    )
-}
-
-@Composable
-private fun OrderOptionTile(modifier: Modifier) {
+private fun OrderOptionTile(modifier: Modifier, tileIcon: ImageVector, tileName: String) {
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -239,12 +247,12 @@ private fun OrderOptionTile(modifier: Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Icon(
-                imageVector = Icons.Outlined.AccountBalanceWallet,
+                imageVector = tileIcon,
                 contentDescription = "View orders to pay"
             )
             Spacer(modifier = modifier.size(12.dp))
             Text(
-                text = "To Pay",
+                text = tileName,
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium)
             )
         }
@@ -264,13 +272,13 @@ private fun OrderOptionTile(modifier: Modifier) {
 //fun OrderOptionTilePreview() {
 //    OrderOptionTile(modifier = Modifier)
 //}
+@Preview(showBackground = true, widthDp = 320, heightDp = 640)
+@Composable
+fun UserProfileScreenPreview() {
+    UserProfileScreen(modifier = Modifier)
+}
 //@Preview(showBackground = true)
 //@Composable
-//fun UserProfileScreenPreview() {
-//    UserProfileScreen(modifier = Modifier)
+//fun OrdersAndAddressInfoPreview() {
+//    OrdersAndAddressInfo(modifier = Modifier)
 //}
-@Preview(showBackground = true)
-@Composable
-fun OrdersAndAddressInfoPreview() {
-    OrdersAndAddressInfo(modifier = Modifier)
-}
