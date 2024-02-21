@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
+import androidx.compose.material.icons.outlined.ArrowForwardIos
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ButtonDefaults
@@ -34,24 +35,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserProfileScreen(modifier: Modifier) {
-    //header
-    //profile card
-    //my orders container
-    //address card
-    //logout button
-
     Scaffold(
         topBar = {
             TopAppBar(title = {
                 Text(
                     text = "Profile",
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                    modifier = modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
                 )
             }, actions = {
                 IconButton(onClick = {
@@ -73,6 +72,7 @@ fun UserProfileScreen(modifier: Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ProfileCard(modifier)
+            OrdersAndAddressInfo(modifier)
         }
     }
 }
@@ -131,53 +131,65 @@ fun OrdersAndAddressInfo(modifier: Modifier) {
         color = Color.White,
         modifier = modifier.padding(horizontal = 16.dp)
     ) {
-        Row(
+        Column(
             modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "My Orders",
-                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Thin)
-            )
-            IconButton(onClick = {
-                //todo: display snackbar view all orders tapped
-            }) {
-                Text(
-                    text = "View All Orders",
-                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Thin)
-                )
-                Icon(
-                    imageVector = Icons.Filled.ArrowForwardIos,
-                    contentDescription = "View All Orders"
-                )
+            MyOrdersInfo(modifier)
+            Column(
+                verticalArrangement = Arrangement.SpaceAround,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                OrderOptionTile(modifier)
+                OrderOptionTile(modifier)
+                OrderOptionTile(modifier)
+                OrderOptionTile(modifier)
+                Spacer(modifier = modifier.size(8.dp))
+                AddressText()
+                AddressInfo(modifier)
+                TextButton(
+                    onClick = {
+                        //todo:logout
+                    }, colors = ButtonDefaults.textButtonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(
+                        text = "Log out",
+                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Normal)
+                    )
+                }
             }
         }
-        Column(
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.fillMaxWidth()
+    }
+}
+
+@Composable
+private fun MyOrdersInfo(modifier: Modifier) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "My Orders",
+            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OrderOptionTile(modifier)
-            OrderOptionTile(modifier)
-            OrderOptionTile(modifier)
-            OrderOptionTile(modifier)
-            Spacer(modifier = modifier.size(8.dp))
-            AddressText()
-            AddressInfo(modifier)
-            TextButton(
-                onClick = {
-                    //todo:logout
-                }, colors = ButtonDefaults.textButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White
-                )
-            ) {
-                Text(
-                    text = "Log out",
-                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Normal)
-                )
-            }
+            Text(
+                text = "View orders to pay",
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium)
+            )
+            Spacer(modifier = modifier.size(12.dp))
+            Icon(
+                imageVector = Icons.Outlined.ArrowForwardIos,
+                contentDescription = "View orders to pay"
+            )
         }
     }
 }
@@ -252,4 +264,13 @@ private fun OrderOptionTile(modifier: Modifier) {
 //fun OrderOptionTilePreview() {
 //    OrderOptionTile(modifier = Modifier)
 //}
-
+//@Preview(showBackground = true)
+//@Composable
+//fun UserProfileScreenPreview() {
+//    UserProfileScreen(modifier = Modifier)
+//}
+@Preview(showBackground = true)
+@Composable
+fun OrdersAndAddressInfoPreview() {
+    OrdersAndAddressInfo(modifier = Modifier)
+}
