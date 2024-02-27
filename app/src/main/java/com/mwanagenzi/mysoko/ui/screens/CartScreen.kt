@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.outlined.Delete
@@ -29,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
@@ -165,6 +165,45 @@ private fun ProductCard(modifier: Modifier) {
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun PromotionCard(modifier: Modifier) {
+    Row(
+        modifier = modifier.padding(horizontal = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = "ADJ3AK",
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            Text(text = "Promocode applied", color = MaterialTheme.colorScheme.primary)
+            Icon(
+                imageVector = Icons.Filled.CheckCircle,
+                contentDescription = "Promoode applied icon"
+            )
+        }
+    }
+}
+
+@Composable
+fun OrderSummary(modifier: Modifier) {
+    Column(
+        verticalArrangement = Arrangement.SpaceAround,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
         }
     }
 }
