@@ -1,4 +1,8 @@
 package com.mwanagenzi.mysoko.ui.screens
 
-class CheckoutScreen {
+import androidx.compose.runtime.Composable
+
+@Composable
+fun CheckoutScreen() {
+
 }

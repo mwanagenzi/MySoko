@@ -13,15 +13,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForwardIos
-import androidx.compose.material.icons.outlined.AccountBalanceWallet
-import androidx.compose.material.icons.outlined.ArrowForwardIos
-import androidx.compose.material.icons.outlined.Backpack
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.LocalShipping
-import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.Call
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Mail
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Wallet
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,18 +25,24 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,12 +50,12 @@ import com.mwanagenzi.mysoko.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserProfileScreen(modifier: Modifier) {
+fun EditProfileScreen(modifier: Modifier) {
     Scaffold(
         topBar = {
             TopAppBar(title = {
                 Text(
-                    text = "Profile",
+                    text = "Edit Profile",
                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     modifier = modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
@@ -78,7 +80,8 @@ fun UserProfileScreen(modifier: Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ProfileCard(modifier)
-            OrdersAndAddressInfo(modifier)
+            //todo: change the below card to collection of edit texts
+            ProfileTextFields(modifier = modifier)
         }
     }
 }
@@ -121,7 +124,7 @@ private fun ProfileCard(modifier: Modifier) {
                     //todo: navigate to edit profile screen
                 }) {
                     Text(
-                        text = "Edit profile",
+                        text = "Delete",
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold)
                     )
                 }
@@ -131,7 +134,7 @@ private fun ProfileCard(modifier: Modifier) {
 }
 
 @Composable
-fun OrdersAndAddressInfo(modifier: Modifier) {
+private fun ProfileTextFields(modifier: Modifier) {
     Surface(
         shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
         color = Color.White,
@@ -142,16 +145,14 @@ fun OrdersAndAddressInfo(modifier: Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier.fillMaxSize()
         ) {
-            MyOrdersInfo(modifier)
-            OrderOptionTile(modifier, Icons.Outlined.AccountBalanceWallet, "To pay")
-            OrderOptionTile(modifier, Icons.Outlined.LocalShipping, "To ship")
-            OrderOptionTile(modifier, Icons.Outlined.Backpack, "To receive")
-            OrderOptionTile(modifier, Icons.Outlined.FavoriteBorder, "Wishlist")
+            ProfileTextField(textFieldIcon = Icons.Outlined.Mail, textFieldName = "Email Address")
+            ProfileTextField(textFieldIcon = Icons.Outlined.Person, textFieldName = "Username")
+            ProfileTextField(textFieldIcon = Icons.Outlined.Home, textFieldName = "Address")
+            ProfileTextField(textFieldIcon = Icons.Outlined.Call, textFieldName = "Mobile number")
             Spacer(modifier = modifier.size(8.dp))
-            AddressInfo(modifier)
             TextButton(
                 onClick = {
-                    //todo:logout
+                    //todo:save
                 },
                 colors = ButtonDefaults.textButtonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -160,7 +161,7 @@ fun OrdersAndAddressInfo(modifier: Modifier) {
                 modifier = modifier.fillMaxWidth(),
             ) {
                 Text(
-                    text = "Log out",
+                    text = "Save",
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Normal)
                 )
             }
@@ -168,96 +169,25 @@ fun OrdersAndAddressInfo(modifier: Modifier) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MyOrdersInfo(modifier: Modifier) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "My Orders",
-            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold)
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = "View orders to pay",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium)
-            )
-            Spacer(modifier = modifier.size(12.dp))
+private fun ProfileTextField(textFieldIcon: ImageVector, textFieldName: String) {
+    var textFieldText by remember {
+        mutableStateOf(TextFieldValue(""))
+    }
+    OutlinedTextField(
+        value = textFieldText,
+        onValueChange = {
+            textFieldText = it
+        },
+        leadingIcon = {
             Icon(
-                imageVector = Icons.Outlined.ArrowForwardIos,
-                contentDescription = "View orders to pay"
+                imageVector = textFieldIcon,
+                contentDescription = "$textFieldName icon"
             )
-        }
-    }
-}
+        },
+        label = { Text(text = textFieldName) },
+        placeholder = { Text(text = "Enter $textFieldName") },
+    )
 
-@Composable
-private fun AddressInfo(modifier: Modifier) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.Start
-    ) {
-
-
-        Text(
-            text = "Address",
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-            modifier = modifier.fillMaxWidth(),
-            textAlign = TextAlign.Start
-        )
-        Spacer(modifier = modifier.size(10.dp))
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(start = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Icon(imageVector = Icons.Outlined.Map, contentDescription = "Address Icon")
-
-            Column(
-                verticalArrangement = Arrangement.SpaceBetween,
-                horizontalAlignment = Alignment.Start
-            ) {
-                Text(
-                    text = "John Doe",
-                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
-                )
-                Text(
-                    text = "7835 new road, Number 3 \n12926-3874",
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun OrderOptionTile(modifier: Modifier, tileIcon: ImageVector, tileName: String) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Icon(
-                imageVector = tileIcon,
-                contentDescription = "View orders to pay"
-            )
-            Spacer(modifier = modifier.size(12.dp))
-            Text(
-                text = tileName,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium)
-            )
-        }
-
-        Icon(imageVector = Icons.Filled.ArrowForwardIos, contentDescription = "To Pay")
-    }
 }
