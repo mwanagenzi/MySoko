@@ -40,7 +40,7 @@ fun CartScreen(modifier: Modifier) {
         topBar = {
             TopAppBar(title = {
                 Text(
-                    text = "Discover",
+                    text = "My Cart",
                     style = MaterialTheme.typography.bodyMedium
                 )
             }, actions = {
@@ -56,6 +56,7 @@ fun CartScreen(modifier: Modifier) {
         }
     ) {
         Column(modifier.padding(it)) {
+//todo: list of cart items
 
         }
     }
@@ -168,8 +169,14 @@ private fun ProductCard(modifier: Modifier) {
     }
 }
 
-@Preview
-@Composable
-fun ProductCardPreview() {
-    ProductCard(modifier = Modifier)
-}
+//@Preview
+//@Composable
+//fun ProductCardPreview() {
+//    ProductCard(modifier = Modifier)
+//}
+//
+//@Preview
+//@Composable
+//fun CartScreenPreview(){
+//    CartScreen(modifier = Modifier)
+//}
