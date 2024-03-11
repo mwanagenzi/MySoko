@@ -6,11 +6,14 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
@@ -89,11 +92,26 @@ private fun OrderDetails(modifier: Modifier) {
 
 @Composable
 private fun ProductCardList(modifier: Modifier) {
-    LazyColumn(modifier.padding(horizontal = 16.dp)) {
-        items(10) {
-            ProductCard(modifier)
-        }
+    val scrollState = rememberScrollState()
+    Column(
+        modifier
+            .padding(horizontal = 16.dp)
+            .verticalScroll(scrollState)
+    ) {
+        ProductCard(modifier)
+        ProductCard(modifier)
+        ProductCard(modifier)
     }
+
+//    LazyColumn(
+//        modifier
+//            .padding(horizontal = 16.dp)
+//            .fillMaxSize()
+//    ) {
+//        items(10) {
+//            ProductCard(modifier)
+//        }
+//    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -280,7 +298,7 @@ private fun CheckoutButton() {
     }
 }
 
-@Preview(showBackground = true, heightDp = 840, widthDp = 320)
+@Preview(showBackground = true, heightDp = 620, widthDp = 320)
 @Composable
 fun CartScreenPreview() {
     CartScreen(modifier = Modifier)
