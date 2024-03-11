@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -74,6 +75,21 @@ fun CartScreen(modifier: Modifier) {
             ProductCardList(modifier.weight(2f))
             OrderDetails(modifier.weight(1f))
         }
+
+//        Box(Modifier.fillMaxSize()) {
+//            LazyColumn(modifier.padding(it)) {
+//                items(10) {
+//                    ProductCard(modifier)
+//                }
+//                item {
+//                    PromotionCard(modifier)
+//                }
+//                item {
+//                    OrderSummary(modifier)
+//                }
+//            }
+//            CheckoutButton(modifier = Modifier.align(Alignment.BottomCenter))
+//        }
     }
 }
 
@@ -86,7 +102,7 @@ private fun OrderDetails(modifier: Modifier) {
     ) {
         PromotionCard(modifier)
         OrderSummary(modifier)
-        CheckoutButton()
+        CheckoutButton(modifier)
     }
 }
 
@@ -138,7 +154,7 @@ private fun ProductCard(modifier: Modifier) {
                 modifier
                     .fillMaxWidth()
                     .padding(start = 8.dp)
-                    .weight(2f),
+                    .weight(3f),
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.Start
             ) {
@@ -279,7 +295,7 @@ private fun OrderSummaryLabel(modifier: Modifier, summaryLabel: String, summaryV
 }
 
 @Composable
-private fun CheckoutButton() {
+private fun CheckoutButton(modifier: Modifier) {
     TextButton(
         onClick = {
             //todo: navigate to checkout screen
@@ -288,7 +304,7 @@ private fun CheckoutButton() {
         colors = ButtonDefaults.textButtonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = Color.White
-        ),
+        ), modifier = modifier
     ) {
         Text(text = "Checkout for ", style = MaterialTheme.typography.bodyMedium)
         Text(
