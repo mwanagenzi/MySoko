@@ -261,3 +261,9 @@ private fun OrderOptionTile(modifier: Modifier, tileIcon: ImageVector, tileName:
         Icon(imageVector = Icons.Filled.ArrowForwardIos, contentDescription = "To Pay")
     }
 }
+
+@Preview(showBackground = true, heightDp = 620, widthDp = 320)
+@Composable
+fun ProfileScreenPreview(){
+    UserProfileScreen(modifier = Modifier)
+}

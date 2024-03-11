@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -16,6 +17,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,6 +33,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
@@ -41,7 +46,9 @@ fun CartScreen(modifier: Modifier) {
             TopAppBar(title = {
                 Text(
                     text = "My Cart",
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
                 )
             }, actions = {
                 IconButton(onClick = {
@@ -55,9 +62,36 @@ fun CartScreen(modifier: Modifier) {
             })
         }
     ) {
-        Column(modifier.padding(it)) {
-//todo: list of cart items
+        Column(
+            modifier
+                .padding(it),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            ProductCardList(modifier.weight(2f))
+            OrderDetails(modifier.weight(1f))
+        }
+    }
+}
 
+@Composable
+private fun OrderDetails(modifier: Modifier) {
+    Column(
+        modifier,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        PromotionCard(modifier)
+        OrderSummary(modifier)
+        CheckoutButton()
+    }
+}
+
+@Composable
+private fun ProductCardList(modifier: Modifier) {
+    LazyColumn(modifier.padding(horizontal = 16.dp)) {
+        items(10) {
+            ProductCard(modifier)
         }
     }
 }
@@ -65,7 +99,7 @@ fun CartScreen(modifier: Modifier) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ProductCard(modifier: Modifier) {
-    OutlinedCard {
+    OutlinedCard(modifier.padding(vertical = 4.dp)) {
         Row(
             modifier
                 .fillMaxWidth()
@@ -172,7 +206,9 @@ private fun ProductCard(modifier: Modifier) {
 @Composable
 private fun PromotionCard(modifier: Modifier) {
     Row(
-        modifier = modifier.padding(horizontal = 8.dp),
+        modifier = modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -182,11 +218,12 @@ private fun PromotionCard(modifier: Modifier) {
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(text = "Promocode applied", color = MaterialTheme.colorScheme.primary)
             Icon(
                 imageVector = Icons.Filled.CheckCircle,
+                tint = MaterialTheme.colorScheme.primary,
                 contentDescription = "Promoode applied icon"
             )
         }
@@ -197,25 +234,54 @@ private fun PromotionCard(modifier: Modifier) {
 fun OrderSummary(modifier: Modifier) {
     Column(
         verticalArrangement = Arrangement.SpaceAround,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.padding(horizontal = 16.dp)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-        }
+        OrderSummaryLabel(modifier, summaryLabel = "Subtotal: ", summaryValue = "$800.00")
+        OrderSummaryLabel(modifier, summaryLabel = "Delivery Fee: ", summaryValue = "$5.00")
+        OrderSummaryLabel(modifier, summaryLabel = "Discount: ", summaryValue = "40%")
     }
 }
 
-//@Preview
-//@Composable
-//fun ProductCardPreview() {
-//    ProductCard(modifier = Modifier)
-//}
-//
-//@Preview
-//@Composable
-//fun CartScreenPreview(){
-//    CartScreen(modifier = Modifier)
-//}
+@Composable
+private fun OrderSummaryLabel(modifier: Modifier, summaryLabel: String, summaryValue: String) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Text(text = summaryLabel, style = MaterialTheme.typography.bodyMedium)
+        Text(
+            text = summaryValue,
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+    }
+
+
+}
+
+@Composable
+private fun CheckoutButton() {
+    TextButton(
+        onClick = {
+            //todo: navigate to checkout screen
+        },
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults.textButtonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White
+        ),
+    ) {
+        Text(text = "Checkout for ", style = MaterialTheme.typography.bodyMedium)
+        Text(
+            text = "$480.00",
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+        )
+    }
+}
+
+@Preview(showBackground = true, heightDp = 840, widthDp = 320)
+@Composable
+fun CartScreenPreview() {
+    CartScreen(modifier = Modifier)
+}
