@@ -6,22 +6,23 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,6 +35,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -64,76 +66,58 @@ fun CartScreen(modifier: Modifier) {
                     )
                 }
             })
+        },
+        bottomBar = {
+            Column {
+                Divider(
+                    thickness = .5.dp,
+                )
+                CheckoutButton(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                )
+            }
         }
-    ) {
-        Column(
-            modifier
-                .padding(it),
+    ) { innerPadding ->
+        LazyColumn(
+            Modifier.padding(innerPadding),
+            contentPadding = PaddingValues(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            ProductCardList(modifier.weight(2f))
-            OrderDetails(modifier.weight(1f))
-        }
-
-//        Box(Modifier.fillMaxSize()) {
-//            LazyColumn(modifier.padding(it)) {
-//                items(10) {
-//                    ProductCard(modifier)
-//                }
-//                item {
-//                    PromotionCard(modifier)
-//                }
-//                item {
-//                    OrderSummary(modifier)
-//                }
+//            items(10) {
+//                ProductCard(modifier)
 //            }
-//            CheckoutButton(modifier = Modifier.align(Alignment.BottomCenter))
-//        }
+            items(3) {
+                ProductCard(modifier)
+                if (it < 2) {
+                    Spacer(modifier = Modifier.size(8.dp))
+                    Divider(
+                        thickness = .5.dp,
+                    )
+                    Spacer(modifier = Modifier.size(8.dp))
+                }
+            }
+            item {
+                Spacer(modifier = modifier.size(16.dp))
+            }
+            item {
+                PromotionCard(modifier)
+            }
+            item {
+                Spacer(modifier = modifier.size(16.dp))
+            }
+            item {
+                OrderSummary(modifier)
+            }
+        }
     }
-}
-
-@Composable
-private fun OrderDetails(modifier: Modifier) {
-    Column(
-        modifier,
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        PromotionCard(modifier)
-        OrderSummary(modifier)
-        CheckoutButton(modifier)
-    }
-}
-
-@Composable
-private fun ProductCardList(modifier: Modifier) {
-    val scrollState = rememberScrollState()
-    Column(
-        modifier
-            .padding(horizontal = 16.dp)
-            .verticalScroll(scrollState)
-    ) {
-        ProductCard(modifier)
-        ProductCard(modifier)
-        ProductCard(modifier)
-    }
-
-//    LazyColumn(
-//        modifier
-//            .padding(horizontal = 16.dp)
-//            .fillMaxSize()
-//    ) {
-//        items(10) {
-//            ProductCard(modifier)
-//        }
-//    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ProductCard(modifier: Modifier) {
-    OutlinedCard(modifier.padding(vertical = 4.dp)) {
+    OutlinedCard() {
         Row(
             modifier
                 .fillMaxWidth()
@@ -239,27 +223,39 @@ private fun ProductCard(modifier: Modifier) {
 
 @Composable
 private fun PromotionCard(modifier: Modifier) {
-    Row(
-        modifier = modifier
-            .padding(horizontal = 16.dp)
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+    Box(
+        modifier
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.small)
+            .border(
+                1.dp,
+                MaterialTheme.colorScheme.onBackground.copy(.3f),
+                MaterialTheme.shapes.small
+            ),
+        contentAlignment = Alignment.Center,
     ) {
-        Text(
-            text = "ADJ3AK",
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
-        )
         Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "Promocode applied", color = MaterialTheme.colorScheme.primary)
-            Icon(
-                imageVector = Icons.Filled.CheckCircle,
-                tint = MaterialTheme.colorScheme.primary,
-                contentDescription = "Promoode applied icon"
+            Text(
+                text = "ADJ3AK",
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
             )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(text = "Promocode applied", color = MaterialTheme.colorScheme.primary)
+                Icon(
+                    imageVector = Icons.Filled.CheckCircle,
+                    tint = MaterialTheme.colorScheme.primary,
+                    contentDescription = "Promoode applied icon"
+                )
+            }
         }
     }
 }
@@ -267,9 +263,9 @@ private fun PromotionCard(modifier: Modifier) {
 @Composable
 fun OrderSummary(modifier: Modifier) {
     Column(
-        verticalArrangement = Arrangement.SpaceAround,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.padding(horizontal = 16.dp)
+        modifier = modifier
     ) {
         OrderSummaryLabel(modifier, summaryLabel = "Subtotal: ", summaryValue = "$800.00")
         OrderSummaryLabel(modifier, summaryLabel = "Delivery Fee: ", summaryValue = "$5.00")
@@ -314,7 +310,7 @@ private fun CheckoutButton(modifier: Modifier) {
     }
 }
 
-@Preview(showBackground = true, heightDp = 620, widthDp = 320)
+@Preview(showBackground = true, heightDp = 720, widthDp = 320)
 @Composable
 fun CartScreenPreview() {
     CartScreen(modifier = Modifier)
