@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.ui.screens.CartScreen
+import com.mwanagenzi.mysoko.ui.screens.HomeScreen
 import com.mwanagenzi.mysoko.ui.screens.SignUpScreen
 import com.mwanagenzi.mysoko.ui.theme.MySokoTheme
 
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
 //                        AppLogo()
 //                        AppName("My Soko")
 //                    }
-                    CartScreen(modifier = Modifier)
+                    HomeScreen(modifier = Modifier)
                 }
             }
         }
