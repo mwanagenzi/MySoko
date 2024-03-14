@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,17 +16,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -80,36 +79,19 @@ fun CartScreen(modifier: Modifier) {
             }
         }
     ) { innerPadding ->
-        LazyColumn(
-            Modifier.padding(innerPadding),
-            contentPadding = PaddingValues(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-//            items(10) {
-//                ProductCard(modifier)
-//            }
-            items(3) {
-                ProductCard(modifier)
-                if (it < 2) {
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Divider(
-                        thickness = .5.dp,
-                    )
-                    Spacer(modifier = Modifier.size(8.dp))
+        Column(modifier.padding(innerPadding)) {
+            LazyColumn(
+                modifier.weight(2f),
+                contentPadding = PaddingValues(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                items(10) {
+                    ProductCard(modifier)
+                    Divider(thickness = 1.dp, modifier = modifier.padding(vertical = 8.dp))
                 }
             }
-            item {
-                Spacer(modifier = modifier.size(16.dp))
-            }
-            item {
-                PromotionCard(modifier)
-            }
-            item {
-                Spacer(modifier = modifier.size(16.dp))
-            }
-            item {
-                OrderSummary(modifier)
-            }
+            PromotionCard(modifier = modifier)
+            OrderSummary(modifier = modifier)
         }
     }
 }
@@ -117,7 +99,7 @@ fun CartScreen(modifier: Modifier) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ProductCard(modifier: Modifier) {
-    OutlinedCard() {
+    Card(colors = CardDefaults.cardColors(containerColor = Color.Transparent)) {
         Row(
             modifier
                 .fillMaxWidth()
@@ -129,16 +111,15 @@ private fun ProductCard(modifier: Modifier) {
                 painter = painterResource(id = R.drawable.basket),
                 contentDescription = "Cart product image",
                 modifier
-                    .weight(1f)
-                    .size(85.dp)
+                    .weight(2f)
                     .background(Color.LightGray, shape = RoundedCornerShape(20.dp))
-                    .padding(vertical = 8.dp),
+                    .padding(12.dp),
             )
             Column(
                 modifier
                     .fillMaxWidth()
                     .padding(start = 8.dp)
-                    .weight(3f),
+                    .weight(4f),
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.Start
             ) {
@@ -226,6 +207,7 @@ private fun PromotionCard(modifier: Modifier) {
     Box(
         modifier
             .fillMaxWidth()
+            .padding(16.dp)
             .clip(MaterialTheme.shapes.small)
             .border(
                 1.dp,
@@ -265,7 +247,7 @@ fun OrderSummary(modifier: Modifier) {
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.padding(horizontal = 16.dp)
     ) {
         OrderSummaryLabel(modifier, summaryLabel = "Subtotal: ", summaryValue = "$800.00")
         OrderSummaryLabel(modifier, summaryLabel = "Delivery Fee: ", summaryValue = "$5.00")
@@ -278,7 +260,7 @@ private fun OrderSummaryLabel(modifier: Modifier, summaryLabel: String, summaryV
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth().padding(vertical = 4.dp)
     ) {
         Text(text = summaryLabel, style = MaterialTheme.typography.bodyMedium)
         Text(
