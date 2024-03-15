@@ -1,6 +1,7 @@
 package com.mwanagenzi.mysoko.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -17,11 +19,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Percent
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -160,24 +163,82 @@ fun HomeScreen(modifier: Modifier) {
                     Spacer(modifier = modifier.size(8.dp))
                 }
             })
-            LazyVerticalGrid(columns = GridCells.Fixed(2), content = {
+            LazyVerticalGrid(columns = GridCells.Fixed(2),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                content = {
                 items(10) {
-                    Card(modifier.size(100.dp)) {
-                        Column(
-                            verticalArrangement = Arrangement.SpaceBetween,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.basket),
-                                contentDescription = "Product Card", modifier.size(50.dp)
-                            )
-                            Text("Name", style = MaterialTheme.typography.bodySmall)
-                        }
-                    }
+                    ProductCard(modifier)
                 }
             })
         }
     }
+}
+
+@Composable
+private fun ProductCard(modifier: Modifier) {
+//    Card(modifier.size(100.dp)) {
+//        Column(
+//            verticalArrangement = Arrangement.SpaceBetween,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            Image(
+//                painter = painterResource(id = R.drawable.basket),
+//                contentDescription = "Product Card", modifier.size(50.dp)
+//            )
+//            Text("Name", style = MaterialTheme.typography.bodySmall)
+//        }
+//    }
+    Surface(
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Image(
+                painterResource(id = R.drawable.basket),
+                contentDescription = "Product image",
+                modifier
+                    .background(color = Color.LightGray, shape = RoundedCornerShape(20.dp))
+                    .padding(16.dp)
+            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = "Air Pods",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+                )
+                Spacer(modifier = modifier.widthIn(min = 24.dp ,max = 96.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+
+                    ) {
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = "Product rating",
+                        tint = Color.Yellow
+                    )
+
+                    Text(
+                        text = "4.9",
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+                    )
+                }
+            }
+            Text(
+                text = "$132.00",
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductCardPreview() {
+    ProductCard(modifier = Modifier)
 }
 
 @Preview(showBackground = true, widthDp = 320, heightDp = 720)
