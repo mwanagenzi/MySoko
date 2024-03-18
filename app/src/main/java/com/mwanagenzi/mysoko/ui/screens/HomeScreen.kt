@@ -6,11 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -21,6 +19,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Percent
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
@@ -33,6 +32,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -41,7 +42,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
@@ -95,6 +95,7 @@ fun HomeScreen(modifier: Modifier) {
                 .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            SearchBar()
             Surface(
                 shape = RoundedCornerShape(20.dp),
                 color = MaterialTheme.colorScheme.primary,
@@ -155,12 +156,24 @@ fun HomeScreen(modifier: Modifier) {
                     modifier = modifier.clickable {},
                 )
             }
-            LazyRow(content = {
-                items(10) {
-                    AssistChip(onClick = {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                content = {
+                    items(10) { item ->
+                        AssistChip(
+                            colors = AssistChipDefaults.assistChipColors(
+                                containerColor = if (item == 0) MaterialTheme.colorScheme.primary else
+                                    Color.Transparent,
+                            ),
+                            onClick = {
                         //todo: filter content based on selected category
-                    }, label = { Text("Category $it") })
-                    Spacer(modifier = modifier.size(8.dp))
+                            },
+                            label = {
+                                Text(
+                                    "Category $item",
+                                    color = if (item == 0) Color.White else Color.Black
+                                )
+                            })
                 }
             })
             LazyVerticalGrid(columns = GridCells.Fixed(2),
@@ -177,23 +190,12 @@ fun HomeScreen(modifier: Modifier) {
 
 @Composable
 private fun ProductCard(modifier: Modifier) {
-//    Card(modifier.size(100.dp)) {
-//        Column(
-//            verticalArrangement = Arrangement.SpaceBetween,
-//            horizontalAlignment = Alignment.CenterHorizontally
-//        ) {
-//            Image(
-//                painter = painterResource(id = R.drawable.basket),
-//                contentDescription = "Product Card", modifier.size(50.dp)
-//            )
-//            Text("Name", style = MaterialTheme.typography.bodySmall)
-//        }
-//    }
     Surface(
+
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.Start,
         ) {
             Image(
                 painterResource(id = R.drawable.basket),
@@ -205,12 +207,12 @@ private fun ProductCard(modifier: Modifier) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
+                modifier = modifier.fillMaxWidth()
             ) {
                 Text(
                     text = "Air Pods",
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
                 )
-                Spacer(modifier = modifier.widthIn(min = 24.dp ,max = 96.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
 
@@ -235,14 +237,43 @@ private fun ProductCard(modifier: Modifier) {
     }
 }
 
-@Preview(showBackground = true)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductCardPreview() {
-    ProductCard(modifier = Modifier)
+fun SearchBar(
+    modifier: Modifier = Modifier
+) {
+    TextField(
+        shape = TextFieldDefaults.outlinedShape.apply { RoundedCornerShape(20.dp) },
+        value = "",
+        onValueChange = {},
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(56.dp),
+        placeholder = { Text(text = "Search") },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Outlined.Search,
+                contentDescription = "Search Icon"
+            )
+        },
+    )
 }
 
-@Preview(showBackground = true, widthDp = 320, heightDp = 720)
-@Composable
-fun PreviewHomeScreen() {
-    HomeScreen(modifier = Modifier)
-}
+//}
+//    SearchBar()
+//fun SearchBarPreview() {
+//@Composable
+//@Preview(showBackground = true)
+//@Composable
+//fun ProductCardPreview() {
+//    ProductCard(modifier = Modifier)
+//}
+//
+//@Preview(showBackground = true, widthDp = 320, heightDp = 720)
+//@Composable
+//fun PreviewHomeScreen() {
+//    HomeScreen(modifier = Modifier)
+//}
+
+
+//@Preview(showBackground = true)
