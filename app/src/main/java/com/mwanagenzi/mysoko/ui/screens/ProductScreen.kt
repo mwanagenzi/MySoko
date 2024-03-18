@@ -3,9 +3,9 @@ package com.mwanagenzi.mysoko.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,6 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -34,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
@@ -56,58 +58,66 @@ fun ProductScreen(modifier: Modifier) {
                 }
             )
         }
-    ) {
+    ) { innerPadding ->
         Column(
             modifier
                 .fillMaxSize()
-                .padding(it),
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = R.drawable.basket),
                 contentDescription = "Product image",
-                modifier.weight(1f)
+                modifier
+                    .weight(1f)
+                    .fillMaxWidth()
             )
             Surface(
                 modifier
-                    .padding(horizontal = 16.dp)
                     .weight(1f),
                 shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
             ) {
                 Column(
                     modifier = modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp),
+                        .padding(top = 8.dp),
                     verticalArrangement = Arrangement.SpaceBetween,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.Start
                 ) {
-                    Text(text = "Xbox Series X", style = MaterialTheme.typography.titleMedium)
-                    Row(horizontalArrangement = Arrangement.Start) {
-                        AssistChip(onClick = {}, label = {
-                            Row(horizontalArrangement = Arrangement.SpaceAround) {
-                                Icon(
-                                    imageVector = Icons.Filled.StarRate,
-                                    contentDescription = "Product rating"
-                                )
+                    Text(
+                        text = "Xbox Series X",
+                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
+                    )
+                    Row(
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        AssistChip(onClick = {}, leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.StarRate,
+                                contentDescription = "Product rating", tint = Color.Yellow
+                            )
+                        }, label = {
                                 Text(text = "4.8", style = MaterialTheme.typography.bodySmall)
                             }
-                        })
+                        )
                         AssistChip(
                             onClick = {},
                             modifier = modifier.padding(horizontal = 10.dp),
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Filled.ThumbUp,
+                                    contentDescription = "Product review"
+                                )
+                            },
                             label = {
-                                Row(horizontalArrangement = Arrangement.SpaceAround) {
-                                    Icon(
-                                        imageVector = Icons.Filled.ThumbUp,
-                                        contentDescription = "Product review"
-                                    )
-                                    Text(text = "4.8", style = MaterialTheme.typography.bodySmall)
-                                }
+                                Text(text = "94%", style = MaterialTheme.typography.bodySmall)
                             })
                         Text(
                             text = "117 reviews",
-                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Light)
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Normal)
                         )
                     }
                     Text(
@@ -116,13 +126,15 @@ fun ProductScreen(modifier: Modifier) {
                     )
                     Row(
                         modifier = modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Start
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        SuggestionChip(onClick = {}, label = {
-                            Text(text = "1 TB")
-                            Text(text = "825 GB")
-                            Text(text = "512 GB")
-                        })
+                        SuggestionChip(
+                            onClick = {},
+                            label = { Text(text = "1 TB", color = Color.White) },
+                            colors = SuggestionChipDefaults.suggestionChipColors(containerColor = MaterialTheme.colorScheme.primary)
+                        )
+                        SuggestionChip(onClick = {}, label = { Text(text = "825 GB") })
+                        SuggestionChip(onClick = {}, label = { Text(text = "256 GB") })
                     }
                     Spacer(modifier = modifier.height(8.dp))
                     Divider(color = Color.LightGray, thickness = Dp.Hairline)
@@ -133,23 +145,25 @@ fun ProductScreen(modifier: Modifier) {
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
                         Column(
-                            modifier = modifier.fillMaxHeight(),
-                            verticalArrangement = Arrangement.SpaceBetween,
                             horizontalAlignment = Alignment.Start
                         ) {
                             Text(
                                 text = "$650.00",
-                                style = MaterialTheme.typography.labelSmall.copy(
+                                style = MaterialTheme.typography.labelMedium.copy(
                                     textDecoration = TextDecoration.LineThrough,
-                                    color = Color.LightGray
+                                    color = Color.Gray
                                 )
                             )
                             Text(
                                 text = "$570.00",
-                                style = MaterialTheme.typography.labelLarge.copy(color = Color.Black)
+                                style = MaterialTheme.typography.titleMedium
                             )
                         }
-                        Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
+                        Button(
+                            onClick = {},
+                            shape = RoundedCornerShape(20.dp),
+                            contentPadding = PaddingValues(horizontal = 32.dp)
+                        ) {
                             Text(text = "Add to Cart")
                         }
                     }
@@ -161,3 +175,9 @@ fun ProductScreen(modifier: Modifier) {
 
 const val dummyReview =
     "The Microsoft Xbox Series X gaming console is capable of impressing with minimal boot times and mesmerizing visual effects when playing games at up to 120 frames per second"
+
+@Preview(showBackground = true, widthDp = 320, heightDp = 720)
+@Composable
+fun ProductScreenPreview() {
+    ProductScreen(modifier = Modifier)
+}
