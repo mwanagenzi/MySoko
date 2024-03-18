@@ -14,11 +14,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Face
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Percent
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.AssistChip
@@ -42,6 +44,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
@@ -67,24 +70,39 @@ fun HomeScreen(modifier: Modifier) {
             })
         },
         bottomBar = {
-            NavigationBar {
+            NavigationBar() {
+
                 NavigationBarItem(selected = true, onClick = {}, icon = {
                     Icon(
-                        imageVector = Icons.Filled.Home,
+                        imageVector = Icons.Outlined.Home,
                         contentDescription = "Home Tab"
                     )
+                }, label = {
+                    Text(text = "Home")
                 })
                 NavigationBarItem(selected = true, onClick = {}, icon = {
                     Icon(
-                        imageVector = Icons.Filled.Search,
+                        imageVector = Icons.Outlined.Search,
                         contentDescription = "Search Tab"
                     )
+                }, label = {
+                    Text(text = "Search")
                 })
                 NavigationBarItem(selected = true, onClick = {}, icon = {
                     Icon(
-                        imageVector = Icons.Filled.Favorite,
+                        imageVector = Icons.Outlined.FavoriteBorder,
                         contentDescription = "Favourite Tab"
                     )
+                }, label = {
+                    Text(text = "Favourites")
+                })
+                NavigationBarItem(selected = true, onClick = {}, icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Person,
+                        contentDescription = "Profile Tab"
+                    )
+                }, label = {
+                    Text(text = "Profile")
                 })
             }
         },
@@ -274,6 +292,3 @@ fun SearchBar(
 //fun PreviewHomeScreen() {
 //    HomeScreen(modifier = Modifier)
 //}
-
-
-//@Preview(showBackground = true)
