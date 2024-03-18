@@ -56,7 +56,7 @@ fun HomeScreen(modifier: Modifier) {
             TopAppBar(title = {
                 Text(
                     text = "Discover",
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.titleLarge
                 )
             }, actions = {
                 IconButton(onClick = {
@@ -287,8 +287,8 @@ fun SearchBar(
 //    ProductCard(modifier = Modifier)
 //}
 //
-//@Preview(showBackground = true, widthDp = 320, heightDp = 720)
-//@Composable
-//fun PreviewHomeScreen() {
-//    HomeScreen(modifier = Modifier)
-//}
+@Preview(showBackground = true, widthDp = 320, heightDp = 720)
+@Composable
+fun PreviewHomeScreen() {
+    HomeScreen(modifier = Modifier)
+}
