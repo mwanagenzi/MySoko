@@ -137,7 +137,7 @@ fun ProductScreen(modifier: Modifier) {
                         SuggestionChip(onClick = {}, label = { Text(text = "256 GB") })
                     }
                     Spacer(modifier = modifier.height(8.dp))
-                    Divider(color = Color.LightGray, thickness = Dp.Hairline)
+                    Divider(color = Color.Gray, thickness = Dp.Hairline)
                     Row(
                         modifier
                             .fillMaxWidth()
@@ -145,7 +145,8 @@ fun ProductScreen(modifier: Modifier) {
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
                         Column(
-                            horizontalAlignment = Alignment.Start
+                            horizontalAlignment = Alignment.Start,
+                            modifier = modifier.weight(1f)
                         ) {
                             Text(
                                 text = "$650.00",
@@ -162,7 +163,7 @@ fun ProductScreen(modifier: Modifier) {
                         Button(
                             onClick = {},
                             shape = RoundedCornerShape(20.dp),
-                            contentPadding = PaddingValues(horizontal = 32.dp)
+                            modifier = modifier.weight(2f)
                         ) {
                             Text(text = "Add to Cart")
                         }

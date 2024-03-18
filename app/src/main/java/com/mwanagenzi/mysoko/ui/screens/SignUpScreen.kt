@@ -32,6 +32,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -165,4 +166,10 @@ private fun SignUpButton() {
     Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
         Text(text = "Agree & Continue")
     }
+}
+
+@Preview
+@Composable
+fun SignUpScreenPreview() {
+    SignUpScreen(modifier = Modifier)
 }
