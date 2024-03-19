@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
 @Composable
-fun SplashScreen(modifier: Modifier) {
+fun SplashScreen(modifier: Modifier, onSplashScreenTimeout: () -> Unit) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -64,6 +63,7 @@ private fun AppLogo(
 @Composable
 fun SplashScreenPreview() {
     SplashScreen(
-        modifier = Modifier
+        modifier = Modifier,
+        onSplashScreenTimeout = {}
     )
 }

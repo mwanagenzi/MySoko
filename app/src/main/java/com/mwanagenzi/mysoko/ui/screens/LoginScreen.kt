@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(modifier: Modifier) {
+fun LoginScreen(modifier: Modifier, onLoginButtonClicked: () -> Unit) {
     Scaffold() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

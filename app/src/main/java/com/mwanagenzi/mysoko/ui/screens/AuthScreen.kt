@@ -27,7 +27,7 @@ import com.mwanagenzi.mysoko.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AuthScreen(modifier: Modifier) {
+fun AuthScreen(modifier: Modifier, onLoginButtonClicked: () -> Unit,onSignUpButtonClicked: () -> Unit) {
     Scaffold() {
         Column(
             verticalArrangement = Arrangement.Center,
