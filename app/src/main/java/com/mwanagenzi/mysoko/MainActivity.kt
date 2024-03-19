@@ -88,8 +88,7 @@ class MainActivity : ComponentActivity() {
                                 onLogoutBtnPressed = {
                                     navController.popBackStack(
                                         MySokoScreens.LoginScreen.name,
-                                        false,
-                                        true
+                                        false
                                     )
                                 },
                                 onEditProfileBtnPressed = { navController.navigate(MySokoScreens.EditProfileScreen.name) })
