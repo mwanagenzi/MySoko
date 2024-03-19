@@ -39,7 +39,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
@@ -74,7 +73,7 @@ fun CartScreen(modifier: Modifier, onCheckoutBtnPressed: () -> Unit) {
                 CheckoutButton(
                     modifier = Modifier
                         .padding(16.dp)
-                        .fillMaxWidth()
+                        .fillMaxWidth(), onButtonClick = onCheckoutBtnPressed
                 )
             }
         }
@@ -275,11 +274,9 @@ private fun OrderSummaryLabel(modifier: Modifier, summaryLabel: String, summaryV
 }
 
 @Composable
-private fun CheckoutButton(modifier: Modifier) {
+private fun CheckoutButton(modifier: Modifier, onButtonClick: () -> Unit) {
     TextButton(
-        onClick = {
-            //todo: navigate to checkout screen
-        },
+        onClick = onButtonClick,
         shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults.textButtonColors(
             containerColor = MaterialTheme.colorScheme.primary,

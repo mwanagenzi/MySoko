@@ -42,7 +42,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
@@ -98,7 +97,7 @@ fun HomeScreen(
                 }, label = {
                     Text(text = "Favourites")
                 })
-                NavigationBarItem(selected = true, onClick = {}, icon = {
+                NavigationBarItem(selected = true, onClick = onProfileButtonClicked, icon = {
                     Icon(
                         imageVector = Icons.Outlined.Person,
                         contentDescription = "Profile Tab"
@@ -201,7 +200,7 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 content = {
                 items(10) {
-                    ProductCard(modifier)
+                    ProductCard(modifier, onCardClick = onProductCardClicked)
                 }
             })
         }
@@ -209,9 +208,9 @@ fun HomeScreen(
 }
 
 @Composable
-private fun ProductCard(modifier: Modifier) {
+private fun ProductCard(modifier: Modifier, onCardClick: () -> Unit) {
     Surface(
-
+        modifier = modifier.clickable { onCardClick() }
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),

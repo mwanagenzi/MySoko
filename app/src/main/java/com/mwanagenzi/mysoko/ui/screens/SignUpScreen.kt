@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,8 +45,7 @@ fun SignUpScreen(modifier: Modifier, onAgreeButtonClicked: () -> Unit) {
     Scaffold() {
         Column(
             modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(it),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -62,10 +62,10 @@ fun SignUpScreen(modifier: Modifier, onAgreeButtonClicked: () -> Unit) {
                     verticalArrangement = Arrangement.SpaceBetween,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    UsernameTextField(modifier)
+                    EmailAddressTextField(modifier)
                     PasswordTextField(modifier)
                     PolicyAgreementClickableLinkText(modifier)
-                    SignUpButton()
+                    SignUpButton(onButtonClick = onAgreeButtonClicked)
                 }
             }
         }
@@ -77,7 +77,7 @@ fun SignUpScreen(modifier: Modifier, onAgreeButtonClicked: () -> Unit) {
 @Composable
 private fun SignUpLabel(modifier: Modifier) {
     Text(
-        text = "Sign up",
+        text = "Sign Up",
         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Medium),
         modifier = modifier.padding(bottom = 18.dp)
     )
@@ -85,7 +85,7 @@ private fun SignUpLabel(modifier: Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun UsernameTextField(modifier: Modifier) {
+private fun EmailAddressTextField(modifier: Modifier) {
     var usernameText by remember {
         mutableStateOf(TextFieldValue(""))
     }
@@ -94,9 +94,9 @@ private fun UsernameTextField(modifier: Modifier) {
         onValueChange = {
             usernameText = it
         },
-        label = { Text(text = "Username") },
+        label = { Text(text = "Email Address") },
         singleLine = true,
-        placeholder = { Text(text = "Enter Username") },
+        placeholder = { Text(text = "Enter Email Address") },
         leadingIcon = {
             Icon(imageVector = Icons.Outlined.Person, contentDescription = "Account name icon")
         }
@@ -162,14 +162,14 @@ private fun PolicyAgreementClickableLinkText(modifier: Modifier) {
 }
 
 @Composable
-private fun SignUpButton() {
-    Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
+private fun SignUpButton(onButtonClick: () -> Unit) {
+    Button(onClick = onButtonClick, shape = RoundedCornerShape(20.dp)) {
         Text(text = "Agree & Continue")
     }
 }
 
-//@Preview
-//@Composable
-//fun SignUpScreenPreview() {
-//    SignUpScreen(modifier = Modifier, onAgreeButtonClicked = {})
-//}
+@Preview
+@Composable
+fun SignUpScreenPreview() {
+    SignUpScreen(modifier = Modifier, onAgreeButtonClicked = {})
+}

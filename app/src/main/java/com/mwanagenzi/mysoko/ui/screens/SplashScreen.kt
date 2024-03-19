@@ -1,12 +1,12 @@
 package com.mwanagenzi.mysoko.ui.screens
 
+import android.os.Looper
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -20,17 +20,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @Composable
 fun SplashScreen(modifier: Modifier, onSplashScreenTimeout: () -> Unit) {
-    loadLoginScreen(onSplashScreenTimeout)
     Column(
         modifier = modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -40,6 +35,7 @@ fun SplashScreen(modifier: Modifier, onSplashScreenTimeout: () -> Unit) {
         Spacer(modifier = modifier.height(48.dp))
         ProgressLoader()
     }
+    loadLoginScreen { onSplashScreenTimeout() }
 }
 
 @Composable
@@ -61,7 +57,6 @@ private fun AppLogo(
     Image(
         painter = painterResource(id = appLogoDrawable),
         contentDescription = "App Logo",
-
     )
 }
 
@@ -70,20 +65,8 @@ private fun ProgressLoader() {
     CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun SplashScreenPreview() {
-//    SplashScreen(
-//        modifier = Modifier,
-//        onSplashScreenTimeout = {}
-//    )
-//}
-
 fun loadLoginScreen(onTimeout: () -> Unit) {
-    runBlocking {
-        launch {
-            delay(3000)
-            onTimeout()
-        }
-    }
+    android.os.Handler(Looper.getMainLooper()).postDelayed({
+        onTimeout()
+    }, 3000)
 }

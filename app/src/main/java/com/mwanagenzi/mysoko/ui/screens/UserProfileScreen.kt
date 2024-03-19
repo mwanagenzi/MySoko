@@ -79,14 +79,14 @@ fun UserProfileScreen(
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ProfileCard(modifier)
-            OrdersAndAddressInfo(modifier)
+            ProfileCard(modifier, onEditProfileBtnPressed)
+            OrdersAndAddressInfo(modifier, onLogoutBtnPressed)
         }
     }
 }
 
 @Composable
-private fun ProfileCard(modifier: Modifier) {
+private fun ProfileCard(modifier: Modifier, onButtonClick: () -> Unit) {
     ElevatedCard(modifier = modifier.padding(horizontal = 16.dp)) {
         Row(
             modifier = modifier
@@ -119,9 +119,7 @@ private fun ProfileCard(modifier: Modifier) {
                     Text("San Fransisco, CA", style = MaterialTheme.typography.bodySmall)
                 }
                 Spacer(modifier = modifier.size(16.dp))
-                OutlinedButton(onClick = {
-                    //todo: navigate to edit profile screen
-                }) {
+                OutlinedButton(onClick = onButtonClick) {
                     Text(
                         text = "Edit profile",
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold)
@@ -133,7 +131,7 @@ private fun ProfileCard(modifier: Modifier) {
 }
 
 @Composable
-fun OrdersAndAddressInfo(modifier: Modifier) {
+fun OrdersAndAddressInfo(modifier: Modifier, onButtonClick: () -> Unit) {
     Surface(
         shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
         color = Color.White,
@@ -152,9 +150,7 @@ fun OrdersAndAddressInfo(modifier: Modifier) {
             Spacer(modifier = modifier.size(8.dp))
             AddressInfo(modifier)
             TextButton(
-                onClick = {
-                    //todo:logout
-                },
+                onClick = onButtonClick,
                 colors = ButtonDefaults.textButtonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = Color.White

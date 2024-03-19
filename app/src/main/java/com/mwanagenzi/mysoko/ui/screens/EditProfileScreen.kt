@@ -81,7 +81,7 @@ fun EditProfileScreen(modifier: Modifier, onSaveBtnPressed: () -> Unit) {
         ) {
             ProfileCard(modifier)
             //todo: change the below card to collection of edit texts
-            ProfileTextFields(modifier = modifier)
+            ProfileTextFields(modifier = modifier, onButtonClick = onSaveBtnPressed)
         }
     }
 }
@@ -135,7 +135,7 @@ private fun ProfileCard(modifier: Modifier) {
 }
 
 @Composable
-private fun ProfileTextFields(modifier: Modifier) {
+private fun ProfileTextFields(modifier: Modifier, onButtonClick: () -> Unit) {
     Surface(
         shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
         color = Color.White,
@@ -152,9 +152,7 @@ private fun ProfileTextFields(modifier: Modifier) {
             ProfileTextField(textFieldIcon = Icons.Outlined.Call, textFieldName = "Mobile number")
             Spacer(modifier = modifier.size(8.dp))
             TextButton(
-                onClick = {
-                    //todo:save
-                },
+                onClick = onButtonClick,
                 colors = ButtonDefaults.textButtonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = Color.White
