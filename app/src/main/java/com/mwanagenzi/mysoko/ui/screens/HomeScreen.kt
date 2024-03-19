@@ -15,8 +15,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Face
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Percent
@@ -50,7 +48,11 @@ import com.mwanagenzi.mysoko.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(modifier: Modifier) {
+fun HomeScreen(
+    modifier: Modifier,
+    onProductCardClicked: () -> Unit,
+    onProfileButtonClicked: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -287,8 +289,8 @@ fun SearchBar(
 //    ProductCard(modifier = Modifier)
 //}
 //
-@Preview(showBackground = true, widthDp = 320, heightDp = 720)
-@Composable
-fun PreviewHomeScreen() {
-    HomeScreen(modifier = Modifier)
-}
+//@Preview(showBackground = true, widthDp = 320, heightDp = 720)
+//@Composable
+//fun PreviewHomeScreen() {
+//    HomeScreen(modifier = Modifier)
+//}

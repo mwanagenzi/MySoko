@@ -3,7 +3,6 @@ package com.mwanagenzi.mysoko.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,7 +41,7 @@ import com.mwanagenzi.mysoko.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductScreen(modifier: Modifier) {
+fun ProductScreen(modifier: Modifier, onAddToCartButtonClicked: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -72,7 +71,6 @@ fun ProductScreen(modifier: Modifier) {
                 contentDescription = "Product image",
                 modifier
                     .weight(1f)
-                    .fillMaxWidth()
             )
             Surface(
                 modifier
@@ -133,7 +131,7 @@ fun ProductScreen(modifier: Modifier) {
                             label = { Text(text = "1 TB", color = Color.White) },
                             colors = SuggestionChipDefaults.suggestionChipColors(containerColor = MaterialTheme.colorScheme.primary)
                         )
-                        SuggestionChip(onClick = {}, label = { Text(text = "825 GB") })
+                        SuggestionChip(onClick = {}, label = { Text(text = "512 GB") })
                         SuggestionChip(onClick = {}, label = { Text(text = "256 GB") })
                     }
                     Spacer(modifier = modifier.height(8.dp))
@@ -177,8 +175,8 @@ fun ProductScreen(modifier: Modifier) {
 const val dummyReview =
     "The Microsoft Xbox Series X gaming console is capable of impressing with minimal boot times and mesmerizing visual effects when playing games at up to 120 frames per second"
 
-@Preview(showBackground = true, widthDp = 320, heightDp = 720)
-@Composable
-fun ProductScreenPreview() {
-    ProductScreen(modifier = Modifier)
-}
+//@Preview(showBackground = true, widthDp = 320, heightDp = 720)
+//@Composable
+//fun ProductScreenPreview() {
+//    ProductScreen(modifier = Modifier)
+//}

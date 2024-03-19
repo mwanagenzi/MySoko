@@ -50,7 +50,7 @@ import com.mwanagenzi.mysoko.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditProfileScreen(modifier: Modifier) {
+fun EditProfileScreen(modifier: Modifier, onSaveBtnPressed: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -120,7 +120,8 @@ private fun ProfileCard(modifier: Modifier) {
                     Text("San Fransisco, CA", style = MaterialTheme.typography.bodySmall)
                 }
                 Spacer(modifier = modifier.size(16.dp))
-                OutlinedButton(onClick = {
+                OutlinedButton(
+                    onClick = {
                     //todo: navigate to edit profile screen
                 }) {
                     Text(
@@ -190,4 +191,10 @@ private fun ProfileTextField(textFieldIcon: ImageVector, textFieldName: String) 
         placeholder = { Text(text = "Enter $textFieldName") },
     )
 
+}
+
+@Preview(showBackground = true, widthDp = 320, heightDp = 720)
+@Composable
+fun EditProfileScreenPreview() {
+    EditProfileScreen(modifier = Modifier, onSaveBtnPressed = {})
 }

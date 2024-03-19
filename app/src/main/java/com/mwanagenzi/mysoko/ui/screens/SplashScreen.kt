@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,12 +18,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun SplashScreen(modifier: Modifier, onSplashScreenTimeout: () -> Unit) {
+    loadLoginScreen(onSplashScreenTimeout)
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -33,6 +37,8 @@ fun SplashScreen(modifier: Modifier, onSplashScreenTimeout: () -> Unit) {
         AppLogo(appLogoDrawable = R.drawable.basket)
         Spacer(modifier = Modifier.height(18.dp))
         AppName()
+        Spacer(modifier = modifier.height(48.dp))
+        ProgressLoader()
     }
 }
 
@@ -59,11 +65,25 @@ private fun AppLogo(
     )
 }
 
-@Preview(showBackground = true)
 @Composable
-fun SplashScreenPreview() {
-    SplashScreen(
-        modifier = Modifier,
-        onSplashScreenTimeout = {}
-    )
+private fun ProgressLoader() {
+    CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+}
+
+//@Preview(showBackground = true)
+//@Composable
+//fun SplashScreenPreview() {
+//    SplashScreen(
+//        modifier = Modifier,
+//        onSplashScreenTimeout = {}
+//    )
+//}
+
+fun loadLoginScreen(onTimeout: () -> Unit) {
+    runBlocking {
+        launch {
+            delay(3000)
+            onTimeout()
+        }
+    }
 }

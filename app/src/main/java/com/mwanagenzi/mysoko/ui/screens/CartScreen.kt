@@ -45,7 +45,7 @@ import com.mwanagenzi.mysoko.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartScreen(modifier: Modifier) {
+fun CartScreen(modifier: Modifier, onCheckoutBtnPressed: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -260,7 +260,9 @@ private fun OrderSummaryLabel(modifier: Modifier, summaryLabel: String, summaryV
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth().padding(vertical = 4.dp)
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp)
     ) {
         Text(text = summaryLabel, style = MaterialTheme.typography.bodyMedium)
         Text(
@@ -292,8 +294,8 @@ private fun CheckoutButton(modifier: Modifier) {
     }
 }
 
-@Preview(showBackground = true, heightDp = 720, widthDp = 320)
-@Composable
-fun CartScreenPreview() {
-    CartScreen(modifier = Modifier)
-}
+//@Preview(showBackground = true, heightDp = 720, widthDp = 320)
+//@Composable
+//fun CartScreenPreview() {
+//    CartScreen(modifier = Modifier)
+//}

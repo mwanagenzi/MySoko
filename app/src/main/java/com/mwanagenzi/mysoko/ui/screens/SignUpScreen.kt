@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpScreen(modifier: Modifier) {
+fun SignUpScreen(modifier: Modifier, onAgreeButtonClicked: () -> Unit) {
 
     Scaffold() {
         Column(
@@ -168,8 +168,8 @@ private fun SignUpButton() {
     }
 }
 
-@Preview
-@Composable
-fun SignUpScreenPreview() {
-    SignUpScreen(modifier = Modifier)
-}
+//@Preview
+//@Composable
+//fun SignUpScreenPreview() {
+//    SignUpScreen(modifier = Modifier, onAgreeButtonClicked = {})
+//}

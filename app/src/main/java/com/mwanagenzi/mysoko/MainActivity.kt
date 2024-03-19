@@ -49,16 +49,23 @@ class MainActivity : ComponentActivity() {
                                 onSignUpButtonClicked = { navController.navigate(MySokoScreens.SignUpScreen.name) })
                         }
                         composable(MySokoScreens.CartScreen.name) {
-                            CartScreen(modifier = Modifier)
+                            CartScreen(
+                                modifier = Modifier,
+                                onCheckoutBtnPressed = { navController.navigate(MySokoScreens.HomeScreen.name) })
                         }
                         composable(MySokoScreens.CheckoutScreen.name) {
                             CheckoutScreen(modifier = Modifier)
                         }
                         composable(MySokoScreens.EditProfileScreen.name) {
-                            EditProfileScreen(modifier = Modifier)
+                            EditProfileScreen(
+                                modifier = Modifier,
+                                onSaveBtnPressed = { navController.navigate(MySokoScreens.UserProfileScreen.name) })
                         }
                         composable(MySokoScreens.HomeScreen.name) {
-                            HomeScreen(modifier = Modifier)
+                            HomeScreen(
+                                modifier = Modifier,
+                                onProductCardClicked = { navController.navigate(MySokoScreens.ProductScreen.name) },
+                                onProfileButtonClicked = { navController.navigate(MySokoScreens.UserProfileScreen.name) })
                         }
                         composable(MySokoScreens.LoginScreen.name) {
                             LoginScreen(
@@ -66,13 +73,26 @@ class MainActivity : ComponentActivity() {
                                 onLoginButtonClicked = { navController.navigate(MySokoScreens.HomeScreen.name) })
                         }
                         composable(MySokoScreens.ProductScreen.name) {
-                            ProductScreen(modifier = Modifier)
+                            ProductScreen(
+                                modifier = Modifier,
+                                onAddToCartButtonClicked = { navController.navigate(MySokoScreens.CartScreen.name) })
                         }
                         composable(MySokoScreens.SignUpScreen.name) {
-                            SignUpScreen(modifier = Modifier)
+                            SignUpScreen(
+                                modifier = Modifier,
+                                onAgreeButtonClicked = { navController.navigate(MySokoScreens.LoginScreen.name) })
                         }
                         composable(MySokoScreens.UserProfileScreen.name) {
-                            UserProfileScreen(modifier = Modifier)
+                            UserProfileScreen(
+                                modifier = Modifier,
+                                onLogoutBtnPressed = {
+                                    navController.popBackStack(
+                                        MySokoScreens.LoginScreen.name,
+                                        false,
+                                        true
+                                    )
+                                },
+                                onEditProfileBtnPressed = { navController.navigate(MySokoScreens.EditProfileScreen.name) })
                         }
                     }
                 }

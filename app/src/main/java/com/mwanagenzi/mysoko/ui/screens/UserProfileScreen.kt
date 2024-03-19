@@ -21,7 +21,6 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.LocalShipping
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Wallet
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,13 +41,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwanagenzi.mysoko.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserProfileScreen(modifier: Modifier) {
+fun UserProfileScreen(
+    modifier: Modifier,
+    onEditProfileBtnPressed: () -> Unit,
+    onLogoutBtnPressed: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -262,8 +264,8 @@ private fun OrderOptionTile(modifier: Modifier, tileIcon: ImageVector, tileName:
     }
 }
 
-@Preview(showBackground = true, heightDp = 620, widthDp = 320)
-@Composable
-fun ProfileScreenPreview(){
-    UserProfileScreen(modifier = Modifier)
-}
+//@Preview(showBackground = true, heightDp = 620, widthDp = 320)
+//@Composable
+//fun ProfileScreenPreview(){
+//    UserProfileScreen(modifier = Modifier)
+//}
