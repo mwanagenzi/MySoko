@@ -24,6 +24,19 @@ import com.mwanagenzi.mysoko.ui.screens.SplashScreen
 import com.mwanagenzi.mysoko.ui.screens.UserProfileScreen
 import com.mwanagenzi.mysoko.ui.theme.MySokoTheme
 
+enum class MySokoScreens {
+    SplashScreen,
+    AuthScreen,
+    CartScreen,
+    CheckoutScreen,
+    EditProfileScreen,
+    HomeScreen,
+    LoginScreen,
+    ProductScreen,
+    SignUpScreen,
+    UserProfileScreen,
+}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,15 +115,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-enum class MySokoScreens {
-    SplashScreen,
-    AuthScreen,
-    CartScreen,
-    CheckoutScreen,
-    EditProfileScreen,
-    HomeScreen,
-    LoginScreen,
-    ProductScreen,
-    SignUpScreen,
-    UserProfileScreen,
-}
