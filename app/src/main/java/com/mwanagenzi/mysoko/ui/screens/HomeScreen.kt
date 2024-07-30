@@ -50,7 +50,8 @@ import com.mwanagenzi.mysoko.R
 fun HomeScreen(
     modifier: Modifier,
     onProductCardClicked: () -> Unit,
-    onProfileButtonClicked: () -> Unit
+    onProfileButtonClicked: () -> Unit,
+    onCartButtonClicked: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -60,9 +61,9 @@ fun HomeScreen(
                     style = MaterialTheme.typography.titleLarge
                 )
             }, actions = {
-                IconButton(onClick = {
-                    // todo: Navigate to cart
-                }, enabled = true) {
+                IconButton(
+                    onClick = onCartButtonClicked, enabled = true
+                ) {
                     Icon(
                         imageVector = Icons.Outlined.ShoppingCart,
                         contentDescription = "Shopping Cart Icon"
